@@ -15,4 +15,8 @@ export class TokensDbService {
     return this.collection.updateOne({ userId: tokens.userId },
       { $set: tokens }, { upsert: true });
   }
+
+  findByAuthToken(authToken: string): Promise<TokensEntity> {
+    return this.collection.findOne({ authToken });
+  }
 }
