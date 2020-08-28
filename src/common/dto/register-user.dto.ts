@@ -1,6 +1,6 @@
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   @MaxLength(30)
   @IsString()
   readonly name: string;

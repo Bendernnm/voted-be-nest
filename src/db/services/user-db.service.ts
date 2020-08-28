@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PROVIDERS } from '../../common/constants';
 import { Collection, Db, InsertOneWriteOpResult } from 'mongodb';
-import { CreateUserDto } from '../../common/dto';
+import { RegisterUserDto } from '../../common/dto';
 import { UserEntity } from '../../common/entities';
 
 @Injectable()
@@ -16,8 +16,8 @@ export class UserDbService {
     return this.collection.findOne({ email });
   }
 
-  async create(createUserDto: CreateUserDto): Promise<UserEntity> {
-    const insertResult: InsertOneWriteOpResult<UserEntity> = await this.collection.insertOne(createUserDto);
+  async create(registerUserDto: RegisterUserDto): Promise<UserEntity> {
+    const insertResult: InsertOneWriteOpResult<UserEntity> = await this.collection.insertOne(registerUserDto);
 
     return insertResult.ops[0];
   }
