@@ -10,6 +10,22 @@ export class UserService {
               private readonly securityService: SecurityService) {
   }
 
+  async findByEmailAndPassword(email: string, password: string): Promise<UserEntity> {
+    const user: UserEntity | null = await this.userDbService.findByEmail(email);
+
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
+
+    const isEqual = await this.securityService.compare(password, user.password);
+
+    if (!isEqual) {
+      throw new HttpException('User not found', 404);
+    }
+
+    return user;
+  }
+
   async register(registerUserDto: RegisterUserDto): Promise<UserEntity> {
     const userWithSameEmail: UserEntity | null = await this.userDbService.findByEmail(registerUserDto.email);
 

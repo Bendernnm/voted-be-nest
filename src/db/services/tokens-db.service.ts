@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Collection, Db, InsertOneWriteOpResult, WithId } from 'mongodb';
+import { Collection, Db, UpdateWriteOpResult } from 'mongodb';
 import { PROVIDERS } from '../../common/constants';
 import { TokensEntity } from '../../common/entities';
 
@@ -11,9 +11,8 @@ export class TokensDbService {
     this.collection = this.db.collection('tokens');
   }
 
-  async create(tokens: TokensEntity): Promise<WithId<TokensEntity>> {
-    const insertResult: InsertOneWriteOpResult<WithId<TokensEntity>> = await this.collection.insertOne(tokens);
-
-    return insertResult.ops[0];
+  upsert(tokens: TokensEntity): Promise<UpdateWriteOpResult> {
+    return this.collection.updateOne({ userId: tokens.userId },
+      { $set: tokens }, { upsert: true });
   }
 }

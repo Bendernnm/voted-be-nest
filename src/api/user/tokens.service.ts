@@ -12,8 +12,6 @@ export class TokensService {
   }
 
   async generateTokens(userId: ObjectId): Promise<TokensEntity> {
-    console.log('!!!');
-
     const authToken: string = await this.jwtService.signAsync({ userId });
     const refreshToken: string = uuid.v4();
 
@@ -23,7 +21,7 @@ export class TokensService {
       refreshToken,
     };
 
-    await this.tokensDbService.create(tokens);
+    await this.tokensDbService.upsert(tokens);
 
     return tokens;
   }
