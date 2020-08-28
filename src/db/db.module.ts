@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { Db, MongoClient } from 'mongodb';
 import { PROVIDERS } from '../common/constants';
 import { UserDbService } from './services/user-db.service';
+import { TokensDbService } from './services/tokens-db.service';
 
 @Module({
   imports: [],
@@ -17,8 +18,9 @@ import { UserDbService } from './services/user-db.service';
       },
     },
     UserDbService,
+    TokensDbService,
   ],
-  exports: [UserDbService],
+  exports: [UserDbService, TokensDbService],
 })
 export class DBModule {
 }

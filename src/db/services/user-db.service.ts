@@ -19,6 +19,6 @@ export class UserDbService {
   async create(createUserDto: CreateUserDto): Promise<UserEntity> {
     const insertResult: InsertOneWriteOpResult<UserEntity> = await this.collection.insertOne(createUserDto);
 
-    return insertResult[0];
+    return insertResult.ops[0];
   }
 }

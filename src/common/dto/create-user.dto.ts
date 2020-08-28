@@ -16,6 +16,7 @@ export class CreateUserDto {
   readonly password: string;
 
   @IsString()
-  @MaxLength(30) // todo check uuid length
+  @MinLength(36)
+  @MaxLength(36)
   readonly image?: string = 'default.png';
 }
