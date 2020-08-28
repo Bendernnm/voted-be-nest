@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Collection, Db, UpdateWriteOpResult } from 'mongodb';
+import { Collection, Db, DeleteWriteOpResultObject, UpdateWriteOpResult } from 'mongodb';
 import { PROVIDERS } from '../../common/constants';
 import { TokensEntity } from '../../common/entities';
 
@@ -18,5 +18,9 @@ export class TokensDbService {
 
   findByAuthToken(authToken: string): Promise<TokensEntity> {
     return this.collection.findOne({ authToken });
+  }
+
+  delete(authToken: string): Promise<DeleteWriteOpResultObject> {
+    return this.collection.deleteOne({ authToken });
   }
 }

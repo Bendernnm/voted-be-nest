@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import { ObjectId } from 'mongodb';
+import { DeleteWriteOpResultObject, ObjectId } from 'mongodb';
 import { TokensDbService } from '../../db/services/tokens-db.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokensEntity } from '../../common/entities';
@@ -24,6 +24,10 @@ export class TokensService {
     await this.tokensDbService.upsert(tokens);
 
     return tokens;
+  }
+
+  removeTokens(authToken: string): Promise<DeleteWriteOpResultObject> {
+    return this.tokensDbService.delete(authToken);
   }
 
   async auth(authToken: string): Promise<ObjectId> {
