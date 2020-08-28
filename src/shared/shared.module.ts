@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { Db, MongoClient } from 'mongodb';
 import { PROVIDERS } from '../common/constants';
+import { SecurityService } from './services/security.service';
 
 @Module({
   imports: [],
   providers: [
+    SecurityService,
     {
       provide: PROVIDERS.DB,
       useFactory: async (): Promise<Db> => {
@@ -16,7 +18,7 @@ import { PROVIDERS } from '../common/constants';
       },
     },
   ],
-  exports: [PROVIDERS.DB],
+  exports: [SecurityService, PROVIDERS.DB],
 })
 export class SharedModule {
 }
