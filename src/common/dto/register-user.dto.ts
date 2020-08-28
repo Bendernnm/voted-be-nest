@@ -1,4 +1,4 @@
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class RegisterUserDto {
   @MaxLength(30)
@@ -15,8 +15,9 @@ export class RegisterUserDto {
   @MaxLength(32)
   readonly password: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(36)
   @MaxLength(36)
-  readonly image?: string = 'default.png';
+  readonly imageToken?: string;
 }
