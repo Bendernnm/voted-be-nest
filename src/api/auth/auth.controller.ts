@@ -7,7 +7,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {
   }
 
-  @Get()
+  @Get('login')
   async login(): Promise<TokensEntity> {
     return {
       authToken: 'authToken',
