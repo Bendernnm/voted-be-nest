@@ -9,8 +9,6 @@ export class AuthController {
 
   @Get()
   async login(): Promise<TokensEntity> {
-    await this.authService.test();
-
     return {
       authToken: 'authToken',
       refreshToken: 'refreshToken',
