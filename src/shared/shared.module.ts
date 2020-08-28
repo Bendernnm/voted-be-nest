@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { Db, MongoClient } from 'mongodb';
 import { PROVIDERS } from '../common/constants';
 import { SecurityService } from './services/security.service';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [],
+  imports: [JwtModule.register({ secret: 'hard!to-guess_secret' })],
   providers: [
     SecurityService,
     {
@@ -18,7 +19,7 @@ import { SecurityService } from './services/security.service';
       },
     },
   ],
-  exports: [SecurityService, PROVIDERS.DB],
+  exports: [JwtModule, SecurityService, PROVIDERS.DB],
 })
 export class SharedModule {
 }
